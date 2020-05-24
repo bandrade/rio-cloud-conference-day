@@ -1,0 +1,5 @@
+# https://git-scm.com/docs/gitignore
+
+*.log
+.kube-config
+.vagrant/

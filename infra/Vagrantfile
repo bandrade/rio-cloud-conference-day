@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+  config.vm.box = "generic/ubuntu2004"
+  config.vm.box_version = "3.0.0"
+  config.vm.host_name = 'microk8s.cloud.rj'
+  config.vm.network 'forwarded_port', guest: 22,    host: 2166,  id: 'ssh',       host_ip: '127.0.0.1', auto_correct: true
+  config.vm.network 'forwarded_port', guest: 32000, host: 32000, id: 'registry',  host_ip: '127.0.0.1', auto_correct: true
+  config.vm.network 'forwarded_port', guest: 16443, host: 16443, id: 'api',  host_ip: '127.0.0.1', auto_correct: true
+
+  config.vm.synced_folder '.', '/home/vagrant/scripts', type: "sshfs"
+  config.vm.provider 'virtualbox' do |vb|
+    vb.cpus = 2
+    vb.memory = 4096
+    vb.name = 'microk8s'
+  end
+  config.vm.provider 'libvirt' do |vb|
+    vb.cpus = 2
+    vb.memory = 4096
+  end
+  config.vm.provision 'shell', path: 'provision.sh'
+end
