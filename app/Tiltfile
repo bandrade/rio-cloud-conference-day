@@ -2,6 +2,7 @@
 k8s_yaml(helm('./src/main/kubernetes/helms/postgresql',name='postgresql', namespace='default'))
 k8s_yaml(helm('./src/main/kubernetes/helms/kube-state-metrics',name='kube-state-metrics', namespace='default'))
 k8s_yaml(helm('./src/main/kubernetes/helms/prometheus',name='prometheus', namespace='default'))
+k8s_yaml(helm('./src/main/kubernetes/helms/grafana',name='grafana', namespace='default'))
 custom_build(
   'quarkus-todo-image',
   deps=['.'],
@@ -14,6 +15,7 @@ custom_build(
 
 k8s_yaml('src/main/kubernetes/app.yaml')
 k8s_resource('prometheus-server', port_forwards=[9090], resource_deps=['kube-state-metrics'])
+k8s_resource('grafana', port_forwards=[3000], resource_deps=['prometheus-server'])
 k8s_resource('postgresql', port_forwards=[5432])
 k8s_resource('quarkus-todo-demo', port_forwards=[8080,5005],
                                   resource_deps=['postgresql','prometheus-server'])
