@@ -9,14 +9,13 @@ custom_build(
   command='buildah bud -t $EXPECTED_REF -f ./src/main/docker/Dockerfile . && buildah push $EXPECTED_REF $EXPECTED_REF',
   skips_local_docker = True,
   live_update = [
-    sync('./', '/project'),
+    sync('./src', '/project/src'),
+    sync('./pom.xml', '/project/pom.xml'),
   ],
   entrypoint = 'mvn quarkus:dev')
 
-k8s_yaml('src/main/kubernetes/app.yaml')
+k8s_yaml('src/main/kubernetes/app.yml')
 k8s_resource('prometheus-server', port_forwards=[9090], resource_deps=['kube-state-metrics'])
-k8s_resource('grafana', port_forwards=[3000], resource_deps=['prometheus-server'])
+k8s_resource('grafana', port_forwards=[3000])
 k8s_resource('postgresql', port_forwards=[5432])
-k8s_resource('quarkus-todo-demo', port_forwards=[8080,5005],
-                                  resource_deps=['postgresql','prometheus-server'])
-
+k8s_resource('quarkus-todo-demo', port_forwards=[8080,5005])

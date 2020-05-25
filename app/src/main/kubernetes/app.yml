@@ -19,6 +19,7 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
+      nodePort: 30800
   type: NodePort
 ---
 apiVersion: apps/v1
@@ -38,11 +39,38 @@ spec:
         - name: quarkus-todo-demo
           image: quarkus-todo-image
           imagePullPolicy: IfNotPresent
+          resources:
+           requests:
+            memory: "256Mi"
+            cpu: "0.5"
+           limits:
+            memory: "512Mi"
+            cpu: "1"
           ports:
             - name: http-web
               containerPort: 8080
             - name: jdwp-debug
               containerPort: 5005  
+          readinessProbe:
+           failureThreshold: 3
+           httpGet:
+            path: "/health/ready"
+            port: 8080
+            scheme: "HTTP"
+           initialDelaySeconds: 120
+           periodSeconds: 30
+           successThreshold: 1
+           timeoutSeconds: 10
+          livenessProbe:
+           failureThreshold: 3
+           httpGet:
+            path: "/health/live"
+            port: 8080
+            scheme: "HTTP"
+           initialDelaySeconds: 120
+           periodSeconds: 30
+           successThreshold: 1
+           timeoutSeconds: 10
           volumeMounts:
             - mountPath: /root/.m2
               name: m2-cache
