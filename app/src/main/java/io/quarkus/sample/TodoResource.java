@@ -7,12 +7,17 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 import java.util.List;
 
 
 @Path("/api")
 @Produces("application/json")
 @Consumes("application/json")
+@Tag(name = "todo")
 public class TodoResource {
 
     @OPTIONS
@@ -37,6 +42,7 @@ public class TodoResource {
 
     @POST
     @Transactional
+    @APIResponse(responseCode = "201", description = "Caso item seja cadastrado com sucesso")
     public Response create(@Valid Todo item) {
         item.persist();
         return Response.status(Status.CREATED).entity(item).build();
