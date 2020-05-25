@@ -8,6 +8,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
@@ -25,6 +27,8 @@ public class TodoResource {
         return Response.ok().build();
     }
 
+    @Counted(name = "Quantidade de consultas a Todos")
+    @Timed(name = "Tempo de consulta a Todos")
     @GET
     public List<Todo> getAll() {
         return Todo.listAll(Sort.by("title"));
