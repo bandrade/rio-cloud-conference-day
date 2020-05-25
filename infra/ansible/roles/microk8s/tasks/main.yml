@@ -51,10 +51,6 @@
   shell: microk8s.enable storage
   become: yes  
 
-- name: enable storage
-  shell: microk8s.enable storage
-  become: yes  
-
 - name: create kube dir
   file:
     path: /home/vagrant/scripts/.kube/
