@@ -1,0 +1,75 @@
+---
+- name: "check if this is really ubuntu"
+  fail:
+    msg: "This role is only supported for Ubuntu hosts"
+  when: ansible_distribution != 'Ubuntu'
+
+- name: setting noninteractive mode
+  shell: export DEBIAN_FRONTEND=noninteractive
+  become: yes  
+
+- name: install snap
+  apt: 
+    name: snapd
+    state: present 
+  become: yes
+  
+- name: check is ufw installed
+  shell: command -v ufw >/dev/null 2>&1
+  register: is_ufw_exist
+  ignore_errors: yes
+
+- name: disabling ufw
+  command: ufw disable
+  become: yes
+  when: is_ufw_exist.rc == 0
+
+- name: install microk8s
+  snap:
+    name: microk8s
+    classic: yes
+    state: present
+  become: yes  
+
+- name: microk8s status
+  shell: microk8s.status --wait-ready
+  become: yes  
+
+- name: enable dns
+  shell: microk8s.enable dns
+  become: yes  
+
+- name: enable ingress
+  shell: microk8s.enable ingress
+  become: yes  
+
+- name: enable registry
+  shell: microk8s.enable registry
+  become: yes  
+
+- name: enable storage
+  shell: microk8s.enable storage
+  become: yes  
+
+- name: enable storage
+  shell: microk8s.enable storage
+  become: yes  
+
+- name: create kube dir
+  file:
+    path: /home/vagrant/scripts/.kube/
+    state: directory
+
+- name: configure kubeconfig
+  shell: microk8s.kubectl config view --raw > /home/vagrant/scripts/.kube/config
+  become: yes  
+
+- name: configure snap alias
+  shell: snap alias microk8s.kubectl kubectl
+  become: yes  
+
+- name: configure vagrant user
+  shell:  usermod -a -G microk8s vagrant && chown -f -R vagrant ~/.kube
+  become: yes  
+
+ 
