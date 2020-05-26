@@ -6,10 +6,6 @@ import io.restassured.common.mapper.TypeRef;
 import org.apache.http.HttpStatus;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.*;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import java.util.List;

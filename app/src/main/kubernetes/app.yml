@@ -52,22 +52,22 @@ spec:
             - name: jdwp-debug
               containerPort: 5005  
           readinessProbe:
-           failureThreshold: 3
+           failureThreshold: 10
            httpGet:
             path: "/health/ready"
             port: 8080
             scheme: "HTTP"
-           initialDelaySeconds: 120
+           initialDelaySeconds: 0
            periodSeconds: 30
            successThreshold: 1
            timeoutSeconds: 10
           livenessProbe:
-           failureThreshold: 3
+           failureThreshold: 10
            httpGet:
             path: "/health/live"
             port: 8080
             scheme: "HTTP"
-           initialDelaySeconds: 120
+           initialDelaySeconds: 0
            periodSeconds: 30
            successThreshold: 1
            timeoutSeconds: 10

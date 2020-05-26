@@ -26,8 +26,7 @@ public class TodoResource {
     public Response opt() {
         return Response.ok().build();
     }
-
-    @Counted(name = "Quantidade de consultas a Todos")
+    @Counted(name = "Quantidade de consultas a tarefas")
     @Timed(name = "Tempo de consulta a Todos")
     @GET
     public List<Todo> getAll() {
@@ -47,14 +46,18 @@ public class TodoResource {
     @POST
     @Transactional
     @APIResponse(responseCode = "201", description = "Caso item seja cadastrado com sucesso")
+    @Counted(name = "Quantidade de tarefas inseridas")
     public Response create(@Valid Todo item) {
         item.persist();
         return Response.status(Status.CREATED).entity(item).build();
     }
 
+
+
     @PATCH
     @Path("/{id}")
-    @Transactional
+    @Counted(name = "Quantidade de tarefas atualizadas")
+    @Transactional 
     public Response update(@Valid Todo todo, @PathParam("id") Long id) {
         Todo entity = Todo.findById(id);
         entity.id = id;
@@ -74,6 +77,7 @@ public class TodoResource {
 
     @DELETE
     @Transactional
+    @Counted(name = "Quantidade de tarefas excluidas")
     @Path("/{id}")
     public Response deleteOne(@PathParam("id") Long id) {
         Todo entity = Todo.findById(id);
