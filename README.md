@@ -4,11 +4,11 @@ A demo to show how sync local [Quarkus](https://quarkus.io/) sources with pod ru
 
 Here is a summary of what is being done here (note that we have health checks properly setup). That's why first build takes more time.
 
-![](/home/bandrade/Downloads/repo/doc_images/app.gif)
+![](./doc_images/app.gif)
 
 Make a change at the code and see the magic happening:
 
-![](/home/bandrade/Downloads/repo/doc_images/refresh.gif)
+![](./doc_images/refresh.gif)
 
 
 
