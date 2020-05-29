@@ -30,7 +30,7 @@ public class TodoResource {
     @Timed(name = "Tempo de consulta a Todos")
     @GET
     public List<Todo> getAll() {
-        return Todo.listAll(Sort.by("title"));
+        return Todo.listAll(Sort.by("order"));
     }
 
     @GET
