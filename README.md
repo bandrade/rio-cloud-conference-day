@@ -129,16 +129,16 @@ Now go to the `app` directory:
 cd ../app
 ```
 
-If it's being used docker as builder, start the environment with:
+If it's being used buildah as builder, start the environment with:
 
 ```sh
 tilt up
 ```
 
-If it's being used buildah as builder, start the environment with:
+If it's being used docker as builder, start the environment with:
 
 ```sh
-tilt up -f Tiltfile.buildah
+tilt up -f Tiltfile.docker
 ```
 
 The command creates the following resources:
