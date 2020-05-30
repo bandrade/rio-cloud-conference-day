@@ -1,6 +1,6 @@
 # The Swiss Army Knife for Developing Cloud Native Applications - Rio Cloud Conference Day
 
-A demo to show how sync local [Quarkus](https://quarkus.io/) sources with pod running in kubernetes and use the `quarkus:dev` mode to hot reload the changes, we're using Vagrant, Microk8s, Tilt and Quarkus. During the environment provisioning we're starting Postgresql, Prometheus and Grafana (all of them are helm packages). It was built for a presentation done in [Rio Cloud Conference Day](http://cloudconferenceday.rio/) with topic `The Swiss Army Knife for Developing Cloud Native Applications`.
+A demo to show how sync local [Quarkus](https://quarkus.io/) sources with pod running in kubernetes and use the `quarkus:dev` mode to hot reload the changes, we're using Vagrant, Microk8s, Tilt and Quarkus. During the environment provisioning we're starting Postgresql, Prometheus and Grafana (all of them are helm packages). It was built for a presentation done in [Rio Cloud Conference Day](http://cloudconferenceday.rio/) with topic `The Swiss Army Knife for Developing Cloud Native Applications`. [Slides in pt-br](https://speakerdeck.com/_bandrade/o-canivete-suico-para-o-desenvolvimento-de-aplicacoes-cloud-native)
 
 Here is a summary of what is being done here (note that we have health checks properly setup). That's why first build takes more time.
 
@@ -10,13 +10,15 @@ Make a change at the code and see the magic happening:
 
 ![](./doc_images/refresh.gif)
 
-
+## Authors 
+- [@bandrade](https://github.com/bandrade)
+- [@msmagnanijr](https://github.com/msmagnanijr)
 
 ## Important
 
 This Dockerfile is used for development purposes, in order to have a production image, you may consider to use [Native builds](https://quarkus.io/guides/building-native-image)
 
-## Pre-requiste
+## Pre-requisite
 
 - Have Docker or Buildah properly installed.
 - Have Vagrant installed with vagrant-ssh plugin.
