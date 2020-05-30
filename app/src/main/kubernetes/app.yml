@@ -57,7 +57,7 @@ spec:
             path: "/health/ready"
             port: 8080
             scheme: "HTTP"
-           initialDelaySeconds: 0
+           initialDelaySeconds: 20
            periodSeconds: 5
            successThreshold: 1
            timeoutSeconds: 10
@@ -67,7 +67,7 @@ spec:
             path: "/health/live"
             port: 8080
             scheme: "HTTP"
-           initialDelaySeconds: 0
+           initialDelaySeconds: 20
            periodSeconds: 5
            successThreshold: 1
            timeoutSeconds: 10
